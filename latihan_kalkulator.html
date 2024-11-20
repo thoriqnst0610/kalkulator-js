@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sederhana</title>
+</head>
+<body>
+    <h1>Kalkulator</h1>
+    <div>
+        <input type="text" id="tampil" disabled>
+    </div>
+    <div>
+        <button onclick="cekAngka('7')">7</button>
+        <button onclick="cekAngka('8')">8</button>
+        <button onclick="cekAngka('9')">9</button>
+        <button onclick="operator('/')">/</button>
+    </div>
+    <div>
+        <button onclick="cekAngka('4')">4</button>
+        <button onclick="cekAngka('5')">5</button>
+        <button onclick="cekAngka('6')">6</button>
+        <button onclick="operator('x')">x</button>
+    </div>
+    <div>
+        <button onclick="cekAngka('1')">1</button>
+        <button onclick="cekAngka('2')">2</button>
+        <button onclick="cekAngka('3')">3</button>
+        <button onclick="operator('-')">-</button>
+    </div>
+    <div>
+        <button onclick="cekAngka('0')">0</button>
+        <button onclick="MenghapusData()">C</button>
+        <button onclick="perhitungan()">=</button>
+        <button onclick="operator('+')">+</button>
+    </div>
+    <script>
+
+        let bilanganPertama = '';
+        let bilanganKedua = '';
+        let matematika = null;
+
+        function menampilkanAngka(){
+            document.getElementById("tampil").value = bilanganPertama;
+        }
+
+        function cekAngka(angka){
+            bilanganPertama += angka;
+            menampilkanAngka();
+        }
+
+        function MenghapusData(){
+            bilanganPertama = '';
+            bilanganKedua = '';
+            menampilkanAngka();
+
+        }
+
+        function perhitungan(){
+
+            if(bilanganPertama == '' || bilanganKedua == '' || matematika == null){
+                return;
+            }
+
+            bilanganPertama = parseFloat(bilanganPertama);
+            bilanganKedua = parseFloat(bilanganKedua);
+
+            let hasilPerhitungan = 0;
+
+            if(matematika == '+'){
+                hasilPerhitungan = bilanganPertama + bilanganKedua;
+            }else if(matematika == '-'){
+                hasilPerhitungan = bilanganKedua - bilanganPertama;
+            }else if(matematika == 'x'){
+                hasilPerhitungan = bilanganPertama * bilanganKedua;
+            }else if(matematika == '/'){
+                hasilPerhitungan = bilanganKedua / bilanganPertama;
+            }
+
+            bilanganPertama = hasilPerhitungan.toString();
+            matematika = null;
+            bilanganKedua = '';
+            menampilkanAngka();
+
+        }
+
+        function operator(jenisOperator){
+
+            if(bilanganPertama === ''){
+                return;
+            }
+
+            if(bilanganKedua !== ''){
+                perhitungan();
+            }
+
+            matematika = jenisOperator;
+            bilanganKedua = bilanganPertama;
+            bilanganPertama = '';
+
+        }
+</script>
+</body>
+</html>
